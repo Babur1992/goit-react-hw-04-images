@@ -1,16 +1,18 @@
-import React from 'react';
 import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
-import style from './ImageGallery.module.css';
+import s from './ImageGallery.module.css';
+import React from 'react';
 
-const ImageGallery = ({ images, onClick }) => {
+const ImageGallery = ({ arrayQueryList, onToggleMenu, modalImageLoad }) => {
+  console.log(arrayQueryList);
   return (
-    <ul className={style.ImageGallery}>
-      {images.map(image => (
+    <ul className={s.ImageGallery}>
+      {arrayQueryList.map((list, index) => (
         <ImageGalleryItem
-          onClick={onClick}
-          key={image.id}
-          image={image}
-        ></ImageGalleryItem>
+          key={list.id + index}
+          nameList={list}
+          onToggleMenu={onToggleMenu}
+          modalImageLoad={modalImageLoad}
+        />
       ))}
     </ul>
   );

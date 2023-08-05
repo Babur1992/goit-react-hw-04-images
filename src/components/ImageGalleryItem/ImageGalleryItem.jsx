@@ -1,29 +1,17 @@
+import s from './ImageGalleryItem.module.css';
 import React from 'react';
-import PropTypes from 'prop-types';
-import style from './ImageGalleryItem.module.css';
 
-const ImageGalleryItem = ({ image, onClick }) => {
+const ImageGalleryItem = ({ nameList, modalImageLoad }) => {
   return (
-    <li
-      className={style.ImageGalleryItem}
-      onClick={() => {
-        onClick(image);
-      }}
-    >
+    <li className={s.ImageGalleryItem}>
       <img
-        src={image.webformatURL}
-        alt={image.tags}
-        id={image.id}
-        className={style.ImageGalleryItem_image}
+        onClick={() => modalImageLoad(nameList.largeImageURL)}
+        className={s.ImageGalleryItemimage}
+        src={nameList.webformatURL}
+        alt={nameList.type}
       />
     </li>
   );
-};
-
-ImageGalleryItem.propTypes = {
-  smallImage: PropTypes.shape({
-    webformatURL: PropTypes.string,
-  }),
 };
 
 export default ImageGalleryItem;

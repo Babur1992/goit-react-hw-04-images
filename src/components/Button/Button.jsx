@@ -1,10 +1,12 @@
+import s from './Button.module.css';
 import React from 'react';
-import style from './Button.module.css';
 
-const Button = ({ onClick }) => (
-  <button type="button" className={style.Button} onClick={onClick}>
-    Load more...
-  </button>
-);
+const Button = ({ onClick }) => {
+  return (
+    <button onClick={() => onClick()} className={s.Button} type="button">
+      Load More
+    </button>
+  );
+};
 
 export default Button;

@@ -1,36 +1,47 @@
-import { useState } from 'react';
-import style from './Searchbar.module.css';
+import s from './Searchbar.module.css';
+import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 
-export default function Searchbar({ onSubmit }) {
-  const [query, setQuery] = useState('');
+const Searchbar = ({ onSubmit }) => {
+  const [queryName, setQueryName] = useState('');
 
   const handleChange = e => {
-    setQuery(e.currentTarget.value);
+    setQueryName(e.target.value);
   };
 
-  const handelSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
-    onSubmit(query);
-    setQuery('');
+    if (queryName.trim() === '') {
+      toast.warn(`Введите запрос`);
+    } else {
+      onSubmit(queryName);
+
+      reset();
+    }
+  };
+
+  const reset = () => {
+    setQueryName('');
   };
 
   return (
-    <header className={style.Searchbar}>
-      <form onSubmit={handelSubmit} className={style.SearchForm}>
-        <button type="submit" className={style.SearchForm_button}>
-          <span className={style.SearchForm_button_label}>Search</span>
+    <header className={s.searchbar}>
+      <form className={s.SearchForm} onSubmit={handleSubmit}>
+        <button type="submit" className={s.SearchFormbutton}>
+          <span className={s.SearchFormbuttonlabel}>Search</span>
         </button>
 
         <input
-          className={style.SearchForm_input}
+          onChange={handleChange}
+          value={queryName}
+          className={s.SearchForminput}
           type="text"
           autoComplete="off"
           autoFocus
           placeholder="Search images and photos"
-          value={query}
-          onChange={handleChange}
         />
       </form>
     </header>
   );
-}
+};
+export default Searchbar;
