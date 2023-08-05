@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useState,useEffect } from 'react';
 
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
@@ -7,9 +7,9 @@ import Button from './Button/Button';
 import Modal from './Modal/Modal';
 import imagesApi from './Api/Api';
 import style from './App/App.module.css';
-//import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+// import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
-export  function App() {
+export function App() {
   const [images, setImages] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [query, setQuery] = useState('');
