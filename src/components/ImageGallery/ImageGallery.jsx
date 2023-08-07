@@ -1,21 +1,25 @@
-import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
-import s from './ImageGallery.module.css';
-import React from 'react';
+import PropTypes from 'prop-types';
 
-const ImageGallery = ({ arrayQueryList, onToggleMenu, modalImageLoad }) => {
-  console.log(arrayQueryList);
+import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
+import { GalleryList } from './ImageGallery.styled';
+
+const ImageGallery = ({ images, modalHandler }) => {
   return (
-    <ul className={s.ImageGallery}>
-      {arrayQueryList.map((list, index) => (
+    <GalleryList>
+      {images.map(image => (
         <ImageGalleryItem
-          key={list.id + index}
-          nameList={list}
-          onToggleMenu={onToggleMenu}
-          modalImageLoad={modalImageLoad}
+          key={image.id}
+          image={image}
+          modalHandler={modalHandler}
         />
       ))}
-    </ul>
+    </GalleryList>
   );
 };
 
 export default ImageGallery;
+
+ImageGallery.propTypes = {
+  images: PropTypes.array.isRequired,
+  modalHandler: PropTypes.func.isRequired,
+};

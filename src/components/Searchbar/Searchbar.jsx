@@ -1,47 +1,59 @@
-import s from './Searchbar.module.css';
-import React, { useState } from 'react';
-import { toast } from 'react-toastify';
+import PropTypes from 'prop-types';
+import { useState, useCallback, memo } from 'react';
+import { FcSearch } from 'react-icons/fc';
+
+import {
+  HeaderForm,
+  SearchForm,
+  SearchFormButton,
+  SearchFormButtonLabel,
+  SearchFormInput,
+} from './Searchbar.styled';
 
 const Searchbar = ({ onSubmit }) => {
-  const [queryName, setQueryName] = useState('');
+  const [query, setQuery] = useState('');
 
-  const handleChange = e => {
-    setQueryName(e.target.value);
-  };
+  const handleInput = useCallback(
+    event => {
+      const query = event.currentTarget.value;
+      setQuery(query);
+    },
+    [setQuery]
+  );
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    if (queryName.trim() === '') {
-      toast.warn(`Введите запрос`);
-    } else {
-      onSubmit(queryName);
-
-      reset();
-    }
-  };
-
-  const reset = () => {
-    setQueryName('');
-  };
+  const handleSubmit = useCallback(
+    event => {
+      event.preventDefault();
+      if (query.trim() === '') return alert('no search query');
+      onSubmit(query);
+      setQuery('');
+    },
+    [query, setQuery, onSubmit]
+  );
 
   return (
-    <header className={s.searchbar}>
-      <form className={s.SearchForm} onSubmit={handleSubmit}>
-        <button type="submit" className={s.SearchFormbutton}>
-          <span className={s.SearchFormbuttonlabel}>Search</span>
-        </button>
+    <HeaderForm>
+      <SearchForm onSubmit={handleSubmit}>
+        <SearchFormButton type="submit">
+          <FcSearch size="30" />
+          <SearchFormButtonLabel>Search</SearchFormButtonLabel>
+        </SearchFormButton>
 
-        <input
-          onChange={handleChange}
-          value={queryName}
-          className={s.SearchForminput}
+        <SearchFormInput
           type="text"
-          autoComplete="off"
-          autoFocus
+          autocomplete="off"
           placeholder="Search images and photos"
+          name="query"
+          value={query}
+          onChange={handleInput}
         />
-      </form>
-    </header>
+      </SearchForm>
+    </HeaderForm>
   );
 };
-export default Searchbar;
+
+export default memo(Searchbar);
+
+Searchbar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};

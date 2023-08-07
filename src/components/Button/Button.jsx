@@ -1,11 +1,10 @@
-import s from './Button.module.css';
-import React from 'react';
+import { LoadMore } from './Button.styled';
 
-const Button = ({ onClick }) => {
+const Button = ({ clickHandle }) => {
   return (
-    <button onClick={() => onClick()} className={s.Button} type="button">
-      Load More
-    </button>
+    <LoadMore type="button" onClick={clickHandle}>
+      LOAD MORE
+    </LoadMore>
   );
 };
 
